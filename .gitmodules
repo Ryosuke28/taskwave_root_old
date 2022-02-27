@@ -1,0 +1,6 @@
+[submodule "aries"]
+  path = aries
+  url = ./aries
+[submodule "frontend"]
+  path = frontend
+  url = ./frontend
