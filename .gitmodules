@@ -1,6 +1,6 @@
 [submodule "aries"]
   path = aries
-  url = ./aries
+  url = https://github.com/Ryosuke28/taskwave_aries
 [submodule "frontend"]
   path = frontend
-  url = ./frontend
+  url = https://github.com/Ryosuke28/taskwave_frontend
