@@ -1,0 +1,41 @@
+version: '3.8'
+
+volumes: 
+  db-data:
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - '8080:3000'
+    volumes:
+      - './frontend:/app'
+    command: yarn run dev
+    depends_on:
+      - aries
+
+  aries:
+    build: ./aries
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    ports:
+      - '3000:3000'
+    volumes:
+      - './aries:/aries'
+    tty: true
+    stdin_open: true
+    # dbのサービスを先に起動するようにdepends_onで指定
+    depends_on:
+      - db
+    # dbのサービスにアクセスできるようlinksで指定
+    links:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'
+      # POSTGRES_PASSWORD: 'postgres'
+    # volumeを指定しホスト側とデータを共有しておく（コンテナ内で保存したものは揮発するため、ホスト側に保存しておくと残せる）
+    volumes:
+      # コンテナのpostgresのデータ保存先
+      - 'db-data:/var/lib/postgresql/data'
