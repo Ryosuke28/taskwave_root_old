@@ -6,4 +6,4 @@
   url = https://github.com/Ryosuke28/taskwave_frontend
 [submodule "taurus"]
 	path = taurus
-	url = ./taurus
+	url = https://github.com/Ryosuke28/taskwave_taurus
